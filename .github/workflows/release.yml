@@ -49,4 +49,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npm run dist -- --publish always --config.releaseInfo.releaseNotesFile=release-notes.md
+          npm run dist -- --publish always

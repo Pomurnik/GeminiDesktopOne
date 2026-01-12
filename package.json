@@ -32,6 +32,9 @@
     },
     "publish": {
       "provider": "github"
+    },
+    "releaseInfo": {
+      "releaseNotesFile": "release-notes.md"
     }
   },
   "keywords": [],
