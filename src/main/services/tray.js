@@ -30,7 +30,7 @@ export function createTray(mainWindow) {
         { type: 'separator' },
         {
             label: 'Quit', click: () => {
-                app.isQuiting = true;
+                app.isQuitting = true;
                 app.quit();
             }
         }
