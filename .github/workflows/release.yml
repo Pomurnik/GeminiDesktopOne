@@ -33,14 +33,23 @@ jobs:
           # 1. Extract version from tag (v1.0.0 -> 1.0.0)
           VERSION=${GITHUB_REF_NAME#v}
           
-          # 2. Extract section from CHANGELOG.md
-          # Assuming standard Keep A Changelog format: "## [1.0.0]"
+          # 2. Extract section from CHANGELOG.md using awk (more robust than sed)
           echo "## What's New" > release-notes.md
-          sed -n "/## \[$VERSION\]/,/## \[/p" CHANGELOG.md | sed '$d' >> release-notes.md
+          awk "/^## \[$VERSION\]/{p=1;print;next} /^## \[/{p=0} p" CHANGELOG.md >> release-notes.md
           
           # 3. Add Full Commit Log
           echo -e "\n## Full Changelog (Commits)" >> release-notes.md
-          git log $(git describe --tags --abbrev=0 ^HEAD 2>/dev/null || echo "")--HEAD --pretty=format:"- %s (%h)" >> release-notes.md
+          
+          # Try to find the previous tag relative to HEAD (ignoring the current tag)
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          
+          if [ -z "$PREV_TAG" ]; then
+            echo "Listing all commits (First Release):"
+            git log --pretty=format:"- %s (%h)" >> release-notes.md
+          else
+            echo "Listing commits from $PREV_TAG to HEAD:"
+            git log "$PREV_TAG..HEAD" --pretty=format:"- %s (%h)" >> release-notes.md
+          fi
           
           # Debug: Print notes to console
           cat release-notes.md
