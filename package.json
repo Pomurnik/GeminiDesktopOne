@@ -29,11 +29,19 @@
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true
+    },
+    "publish": {
+      "provider": "github",
+      "releaseType": "draft"
     }
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Pomurnik",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pomurnik/GeminiDesktopOne.git"
+  },
+  "license": "MIT",
   "dependencies": {
     "auto-launch": "^5.0.6",
     "electron-store": "^11.0.2"
