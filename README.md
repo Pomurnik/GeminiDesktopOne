@@ -8,16 +8,17 @@
   </p>
 
   <a href="https://github.com/Pomurnik/GeminiDesktopOne/releases">
-    <img src="https://img.shields.io/github/v/release/Pomurnik/GeminiDesktopOne?style=flat-square&color=8ab4f8" alt="Latest Release" />
+    <img src="https://img.shields.io/github/v/release/Pomurnik/GeminiDesktopOne?style=for-the-badge&color=8ab4f8" alt="Latest Release" />
   </a>
+  <img src="https://img.shields.io/badge/Platform-Windows-0078d7?style=for-the-badge&logo=windows" alt="Platform" />
   <a href="https://github.com/Pomurnik/GeminiDesktopOne/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/Pomurnik/GeminiDesktopOne?style=flat-square&color=2b2d31" alt="License" />
+    <img src="https://img.shields.io/github/license/Pomurnik/GeminiDesktopOne?style=for-the-badge&color=2b2d31" alt="License" />
   </a>
   <a href="https://github.com/Pomurnik/GeminiDesktopOne/releases">
-    <img src="https://img.shields.io/github/downloads/Pomurnik/GeminiDesktopOne/total?style=flat-square&color=34a853" alt="Total Downloads" />
+    <img src="https://img.shields.io/github/downloads/Pomurnik/GeminiDesktopOne/total?style=for-the-badge&color=34a853" alt="Total Downloads" />
   </a>
   <br />
-  <img src="https://img.shields.io/badge/Vibe-Coded-ff69b4?style=flat-square" alt="Vibecoded" />
+  <img src="https://img.shields.io/badge/Vibe-Coded-ff69b4?style=for-the-badge" alt="Vibecoded" />
 </div>
 
 ---
