@@ -17,6 +17,7 @@ export function getSettingsWindow() {
 
 export function createSettingsWindow(mainWindow) {
     if (settingsWindow && !settingsWindow.isDestroyed()) {
+        if (!settingsWindow.isVisible()) settingsWindow.show();
         settingsWindow.focus();
         return settingsWindow;
     }
@@ -40,6 +41,8 @@ export function createSettingsWindow(mainWindow) {
             spellcheck: false
         }
     });
+
+    settingsWindow.__internal = true;
 
     settingsWindow.loadFile(RENDERER_HTML);
 

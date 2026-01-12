@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test covers\" && exit 1"
   },
   "build": {
-    "appId": "com.macio.geminidesktopone",
+    "appId": "com.pomuurnik.geminidesktopone",
     "productName": "GeminiDesktopOne",
     "directories": {
       "output": "dist"
@@ -18,7 +18,8 @@
     "win": {
       "icon": "assets/icon.png",
       "target": [
-        "nsis"
+        "nsis",
+        "zip"
       ]
     },
     "files": [
@@ -28,7 +29,8 @@
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true
+      "createDesktopShortcut": true,
+      "allowElevation": true
     }
   },
   "keywords": [],
@@ -43,7 +45,7 @@
     "electron-store": "^11.0.2"
   },
   "devDependencies": {
-    "electron": "^33.2.1",
+    "electron": "^35.7.5",
     "electron-builder": "^26.4.0"
   }
 }
