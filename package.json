@@ -31,8 +31,7 @@
       "createDesktopShortcut": true
     },
     "publish": {
-      "provider": "github",
-      "releaseType": "draft"
+      "provider": "github"
     }
   },
   "keywords": [],

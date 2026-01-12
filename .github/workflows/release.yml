@@ -33,11 +33,10 @@ jobs:
           # 1. Extract version from tag (v1.0.0 -> 1.0.0)
           VERSION=${GITHUB_REF_NAME#v}
           
-          # 2. Extract section from CHANGELOG.md using awk (more robust than sed)
+          # 2. Extract section from CHANGELOG.md using awk
           echo "## What's New" > release-notes.md
-          # Escape brackets for awk regex: requires triple backslash logic in YAML/Bash context often, 
-          # but simplisticly: \\\[ matches literal \[ in awk when passed inside double quotes
-          awk "/^## \\[$VERSION\\]/{p=1;print;next} /^## \[/{p=0} p" CHANGELOG.md >> release-notes.md
+          # Relaxed regex: match '##' followed by any characters, then '[VERSION]'
+          awk "/^## .*\[$VERSION\]/{p=1;print;next} /^## \[/{p=0} p" CHANGELOG.md >> release-notes.md
           
           # 3. Add Full Commit Log
           echo -e "\n## Full Changelog (Commits)" >> release-notes.md
