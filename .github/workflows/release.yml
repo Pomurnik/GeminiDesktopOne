@@ -55,7 +55,8 @@ jobs:
           cat release-notes.md
 
       - name: Build and Release
+        shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npm run dist -- --publish always -c.releaseInfo.releaseNotesFile=release-notes.md
+          npm run dist -- --publish always --config.releaseInfo.releaseNotesFile=release-notes.md
