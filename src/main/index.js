@@ -8,11 +8,13 @@ import { createTray } from './services/tray.js';
 import { registerGlobalShortcuts } from './services/shortcuts.js';
 
 // Windows
-import { createMainWindow, getMainWindow } from './windows/mainWindow.js';
+import { createMainWindow, getMainWindow, applyInvisibilityMode } from './windows/mainWindow.js';
 import { createSettingsWindow, getSettingsWindow } from './windows/settingsWindow.js';
 
-// CRITICAL: Hide Electron from Google's bot detection
+// CRITICAL: Focus & Graphics tweaks for better global shortcut reliability
+app.disableHardwareAcceleration();
 app.commandLine.appendSwitch('disable-blink-features', 'AutomationControlled');
+app.setAppUserModelId('com.macio.geminidesktopone');
 
 // Setup AutoLaunch
 const geminiAutoLauncher = new AutoLaunch({
@@ -48,6 +50,8 @@ const initApp = () => {
     const mainWindow = createMainWindow();
     createTray(mainWindow);
     registerGlobalShortcuts(mainWindow, () => createSettingsWindow(mainWindow));
+
+
 
     // Handle AutoLaunch state
     const runAtStartup = store.get('runAtStartup');
@@ -93,10 +97,22 @@ ipcMain.on('save-setting', (event, key, value) => {
         }
     }
 
+
+    if (key === 'invisibilityMode') {
+        const mainWindow = getMainWindow();
+        if (mainWindow && !mainWindow.isDestroyed()) {
+            applyInvisibilityMode(mainWindow);
+        }
+    }
+
     // Broadcast update to all windows
     BrowserWindow.getAllWindows().forEach(win => {
         if (!win.isDestroyed()) {
             win.webContents.send('settings-updated', store.store);
+            const view = win.contentView ? win.contentView.children[0] : null;
+            if (view && view.webContents && !view.webContents.isDestroyed()) {
+                view.webContents.send('settings-updated', store.store);
+            }
         }
     });
 });
@@ -114,10 +130,14 @@ ipcMain.on('window-control', (event, action) => {
     if (action === 'maximize') mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize();
     if (action === 'close') {
         if (store.get('quitOnClose')) {
-            app.isQuiting = true;
+            app.isQuitting = true;
             app.quit();
         } else {
             mainWindow.hide();
+            const settingsWindow = getSettingsWindow();
+            if (settingsWindow && !settingsWindow.isDestroyed() && settingsWindow.isVisible()) {
+                settingsWindow.hide();
+            }
         }
     }
 });

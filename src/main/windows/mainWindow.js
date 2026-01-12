@@ -1,15 +1,10 @@
-import { BrowserWindow, BrowserView, app, session } from 'electron';
+import { BrowserWindow, WebContentsView, app, session } from 'electron';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import store from '../config/store.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// Paths relative to src/main/windows/
-// Preload: src/preload/index.cjs -> ../../preload/index.cjs
-// Renderer: src/renderer/app/index.html -> ../../../renderer/app/index.html
-// Assets: root/assets/icon.png -> ../../../assets/icon.png
 
 const PRELOAD_PATH = path.join(__dirname, '..', '..', 'preload', 'index.cjs');
 const RENDERER_HTML = path.join(__dirname, '..', '..', 'renderer', 'app', 'index.html');
@@ -37,6 +32,8 @@ export function createMainWindow() {
         icon: ICON_PATH,
         frame: false,
         backgroundColor: '#131314',
+        focusable: true,
+        fullscreenable: false,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
@@ -51,7 +48,8 @@ export function createMainWindow() {
 
     mainWindow.loadFile(RENDERER_HTML);
 
-    geminiView = new BrowserView({
+    // Modern WebContentsView (Electron 30+)
+    geminiView = new WebContentsView({
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
@@ -59,7 +57,7 @@ export function createMainWindow() {
         }
     });
 
-    mainWindow.setBrowserView(geminiView);
+    mainWindow.contentView.addChildView(geminiView);
     geminiView.setBackgroundColor('#131314');
 
     const setBounds = () => {
@@ -111,12 +109,29 @@ export function createMainWindow() {
     geminiView.webContents.loadURL(GEMINI_URL);
 
     mainWindow.on('close', (event) => {
-        if (!app.isQuiting && !store.get('quitOnClose')) {
+        if (!app.isQuitting && !store.get('quitOnClose')) {
             event.preventDefault();
             mainWindow.hide();
         }
         return false;
     });
 
+    applyInvisibilityMode(mainWindow);
+
     return mainWindow;
+}
+
+export function applyInvisibilityMode(win) {
+    if (!win || win.isDestroyed()) return;
+    const enabled = store.get('invisibilityMode');
+    try {
+        win.setContentProtection(enabled);
+        // If enabled, force skip taskbar. If disabled, restore based on other settings logic (usually false for main window)
+        // But for Main Window, usually we want it in taskbar unless minimized to tray or strictly hidden.
+        // Assuming normal behavior is "in taskbar".
+        win.setSkipTaskbar(enabled);
+        console.log(`Invisibility mode ${enabled ? 'enabled' : 'disabled'} for window ${win.id}`);
+    } catch (e) {
+        console.warn('Failed to set content protection:', e);
+    }
 }

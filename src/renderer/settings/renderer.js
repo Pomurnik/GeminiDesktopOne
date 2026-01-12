@@ -8,6 +8,7 @@
         startMinimized: document.getElementById('startMinimized'),
         runAtStartup: document.getElementById('runAtStartup'),
         quitOnClose: document.getElementById('quitOnClose'),
+        invisibilityMode: document.getElementById('invisibilityMode'),
         closeBtn: document.getElementById('closeBtn')
     };
 
@@ -31,6 +32,7 @@
             if (elements.startMinimized) elements.startMinimized.checked = !!settings.startMinimized;
             if (elements.runAtStartup) elements.runAtStartup.checked = !!settings.runAtStartup;
             if (elements.quitOnClose) elements.quitOnClose.checked = !!settings.quitOnClose;
+            if (elements.invisibilityMode) elements.invisibilityMode.checked = !!settings.invisibilityMode;
         } catch (err) {
             console.error('Error in settings init:', err);
         } finally {
@@ -58,6 +60,14 @@
             if (isInitializing) return;
             console.log('Toggling quitOnClose:', e.target.checked);
             electronAPI.saveSetting('quitOnClose', e.target.checked);
+        });
+    }
+
+    if (elements.invisibilityMode) {
+        elements.invisibilityMode.addEventListener('change', (e) => {
+            if (isInitializing) return;
+            console.log('Toggling invisibilityMode:', e.target.checked);
+            electronAPI.saveSetting('invisibilityMode', e.target.checked);
         });
     }
 

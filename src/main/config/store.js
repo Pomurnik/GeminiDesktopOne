@@ -6,7 +6,8 @@ const store = new Store({
         hotkey: 'Control+Shift+G',
         startMinimized: false,
         runAtStartup: false,
-        quitOnClose: false
+        quitOnClose: false,
+        invisibilityMode: false
     }
 });
 
