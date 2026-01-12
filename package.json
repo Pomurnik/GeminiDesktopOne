@@ -1,0 +1,45 @@
+{
+  "name": "gemini-desktop-one",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Premium Gemini Desktop Experience",
+  "main": "src/main/index.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win",
+    "test": "echo \"Error: no test covers\" && exit 1"
+  },
+  "build": {
+    "appId": "com.macio.geminidesktopone",
+    "productName": "GeminiDesktopOne",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "icon": "assets/icon.png",
+      "target": [
+        "nsis"
+      ]
+    },
+    "files": [
+      "**/*",
+      "!dist/*"
+    ],
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "auto-launch": "^5.0.6",
+    "electron-store": "^11.0.2"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^26.4.0"
+  }
+}

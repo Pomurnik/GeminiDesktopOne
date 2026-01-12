@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap');
+
+:root {
+    --bg-color: #1b1b1f;
+    --titlebar-bg: #000;
+    --text-color: #e3e3e3;
+    --accent-color: #8ab4f8;
+    --hover-bg: #2d2e30;
+    --close-hover-bg: #c42b1c;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Google Sans', 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#title-bar {
+    height: 32px;
+    background-color: var(--titlebar-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #3c4043;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    -webkit-app-region: drag;
+}
+
+.drag-region {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    -webkit-app-region: drag;
+}
+
+.app-icon {
+    -webkit-app-region: drag;
+}
+
+.app-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: #8e8e8e;
+    -webkit-app-region: drag;
+}
+
+.window-controls {
+    display: flex;
+    height: 100%;
+    -webkit-app-region: no-drag;
+    pointer-events: auto;
+    position: relative;
+    z-index: 10001;
+}
+
+.window-controls button {
+    width: 46px;
+    height: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    outline: none;
+    -webkit-app-region: no-drag;
+    pointer-events: auto;
+}
+
+.window-controls button:hover {
+    background-color: var(--hover-bg);
+}
+
+#closeBtn:hover {
+    background-color: var(--close-hover-bg);
+}
+
+#settingsBtn {
+    color: #8e8e8e;
+}
+
+#settingsBtn:hover {
+    color: var(--text-color);
+}
+
+#content {
+    flex: 1;
+    position: relative;
+    background-color: var(--bg-color);
+    padding-top: 32px;
+}
+
+.loader-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #8e8e8e;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #3c4043;
+    border-top: 4px solid var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 16px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

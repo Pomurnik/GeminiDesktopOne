@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <header id="settings-header">
+      <div class="header-title">Settings</div>
+      <button id="closeBtn" title="Close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </header>
+
+    <main>
+      <section class="setting-item">
+        <div class="setting-info">
+          <label for="alwaysOnTop">Always on Top</label>
+          <p>Keep the Gemini window above all other applications.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="alwaysOnTop">
+          <span class="slider"></span>
+        </label>
+      </section>
+
+      <section class="setting-item">
+        <div class="setting-info">
+          <label for="hotkey">Global Hotkey</label>
+          <p>Shortcut to toggle Gemini visibility.</p>
+        </div>
+        <input type="text" id="hotkey" placeholder="e.g. Control+Shift+G" readonly spellcheck="false" autocomplete="off"
+          autocorrect="off">
+      </section>
+
+      <section class="setting-item">
+        <div class="setting-info">
+          <label for="startMinimized">Start Minimized</label>
+          <p>Launch the app hidden in the system tray.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="startMinimized">
+          <span class="slider"></span>
+        </label>
+      </section>
+
+      <section class="setting-item">
+        <div class="setting-info">
+          <label for="runAtStartup">Run at Startup</label>
+          <p>Launch GeminiDesktopOne automatically when you log in.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="runAtStartup">
+          <span class="slider"></span>
+        </label>
+      </section>
+
+      <section class="setting-item">
+        <div class="setting-info">
+          <label for="quitOnClose">Quit on Close</label>
+          <p>Close button quits the application instead of minimizing to tray.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="quitOnClose">
+          <span class="slider"></span>
+        </label>
+      </section>
+
+    </main>
+  </div>
+  <script src="renderer.js"></script>
+</body>
+
+</html>
