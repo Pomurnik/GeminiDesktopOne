@@ -44,9 +44,16 @@ jobs:
           # Debug: Print notes to console
           cat release-notes.md
 
-      - name: Build and Release
+      - name: Build (No Publish)
         shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npm run dist -- --publish always
+        run: npm run dist -- --publish never
+
+      - name: Publish Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          body_path: release-notes.md
+          files: |
+            dist/*.exe
+            dist/*.blockmap
+            dist/latest.yml

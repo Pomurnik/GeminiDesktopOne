@@ -29,12 +29,6 @@
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true
-    },
-    "publish": {
-      "provider": "github"
-    },
-    "releaseInfo": {
-      "releaseNotesFile": "release-notes.md"
     }
   },
   "keywords": [],
